@@ -1,0 +1,21 @@
+import easygui as g
+import sys
+msg="【*用户名】为必填项\n【*真实姓名】为必填项\n【*手机号码】为必填项\n【*E-mail】为必填项\n"
+title="账号中心"
+fieldNames=["*用户名","*真实姓名","固定电话","*手机号码","QQ","*E-mail"]
+fieldValues=[]
+fieldValues=g.multenterbox(msg,title,fieldNames)
+while 1:
+    if fieldValues == None:#只有点Cancle的时候，返回值是None
+        break
+    errmsg = ""
+    for i in range(len(fieldNames)):
+        option = fieldNames[i].strip()
+        if option[0] == "*" and fieldValues[i].strip() == "":
+            errmsg += ("%s为必填项\n" % fieldNames[i])
+    #此部分只是判断带*的fieldNames，循环完这一次后，带值进入下一次循环后判断if然后符合后break
+    if errmsg == "":
+        break
+    fieldValues=g.multenterbox(errmsg,title,fieldNames)
+    #此fieldValues主要是为了for循环部分每次循环后带值进入下一次循环验证，如果符合就break
+print("用户信息;%s"%(str(fieldValues)))
